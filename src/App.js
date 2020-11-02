@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import FirstBlank from './components/FirstBlank'
 import './App.css';
 

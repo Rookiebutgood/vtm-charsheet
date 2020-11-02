@@ -1,8 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 
 function Nature() {
-  let [val, setVal] = useState('1')
   return (
     <select>
       <option>Архитектор</option>

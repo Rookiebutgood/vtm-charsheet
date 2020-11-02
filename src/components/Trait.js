@@ -2,10 +2,10 @@ import React from 'react';
 import {connect} from 'react-redux'
 import {changeTrait} from '../redux/actions'
 
-function Trait({label, name, attrValue, changeTrait}) {
-
+function Trait({label, name, maxPoints, attrValue, changeTrait}) {
   let points = []
-  for(let i = 1; i <= 9; i++) {
+  let max = maxPoints || 9;
+  for(let i = 1; i <= max; i++) {
     points.push(
       <input type="radio"
       key={i}

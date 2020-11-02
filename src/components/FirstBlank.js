@@ -15,7 +15,7 @@ function FirstBlank() {
         <Attributes />
       </div>
       <div className="character__abilities" style={{display: 'flex'}}>
-        <Abilities abilities={calebros.abilities}/>
+        <Abilities />
       </div>
       <div className="character__advantages" style={{display: 'flex'}}>
         <Advantages advantages={calebros.advantages} />

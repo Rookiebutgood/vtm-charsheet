@@ -2,70 +2,80 @@ import {combineReducers} from 'redux'
 import calebros from '../components/characters/calebros'
 
 const initCharactrer = calebros
-const initialAttributes = JSON.parse(window.localStorage.getItem('attr')) || {
-  physical: {
-    strength: 9,
-    dexterity: 0,
-    stamina: 0
-  },
-  social: {
-    charisma: 0,
-    manipulation: 0,
-    appearence: 0
-  },
-  mental: {
-    perception: 0,
-    intelligence: 0,
-    wits: 0
-  }
-}
+// const initialAttributes = JSON.parse(window.localStorage.getItem('attr')) || {
+//   physical: {
+//     strength: 9,
+//     dexterity: 0,
+//     stamina: 0
+//   },
+//   social: {
+//     charisma: 0,
+//     manipulation: 0,
+//     appearence: 0
+//   },
+//   mental: {
+//     perception: 0,
+//     intelligence: 0,
+//     wits: 0
+//   }
+// }
 
-const initialAbilities = {
-  talents: {   
-    alertness: 4, //бдительность
-    athletics: 0,
-    dodge: 0,
-    brawl: 4,
-    emphaty: 0,
-    expression: 0,
-    intimidation: 3, //запугивание
-    leadership: 3,
-    streetwise: 5,
-    subterfuge: 4 //хитрость
-  },
-  skills: {
-    animal_ken: 3,
-    crafts: 1,
-    drive: 2,
-    etiquette: 0,
-    firearms: 0,
-    melee: 1,
-    performance: 2,
-    security: 2,
-    stealth: 4,
-    survival: 3
-  },
-  knowledges: {
-    academics: 4,
-    computer: 1,
-    finance: 3,
-    investigation: 5,
-    laws: 0,
-    linguistics: 3,
-    medicine: 0,
-    occult: 3,
-    politics: 4,
-    science: 2,
-  }
-}
+// const initialAbilities = {
+//   talents: {   
+//     alertness: 4, //бдительность
+//     athletics: 0,
+//     dodge: 0,
+//     brawl: 4,
+//     emphaty: 0,
+//     expression: 0,
+//     intimidation: 3, //запугивание
+//     leadership: 3,
+//     streetwise: 5,
+//     subterfuge: 4 //хитрость
+//   },
+//   skills: {
+//     animal_ken: 3,
+//     crafts: 1,
+//     drive: 2,
+//     etiquette: 0,
+//     firearms: 0,
+//     melee: 1,
+//     performance: 2,
+//     security: 2,
+//     stealth: 4,
+//     survival: 3
+//   },
+//   knowledges: {
+//     academics: 4,
+//     computer: 1,
+//     finance: 3,
+//     investigation: 5,
+//     laws: 0,
+//     linguistics: 3,
+//     medicine: 0,
+//     occult: 3,
+//     politics: 4,
+//     science: 2,
+//   }
+// }
 
-const initialBackground = [
-  {name: 'contacts', value: 5},
-  {name: 'herd', value: 3},
-  {name: 'influence', value: 3},
-  {name: 'mentor', value: 5},
-  {name: 'resources', value: 4},
-  {name: 'status', value: 4},
+// const initialBackground = [
+//   {name: 'contacts', value: 5},
+//   {name: 'herd', value: 3},
+//   {name: 'influence', value: 3},
+//   {name: 'mentor', value: 5},
+//   {name: 'resources', value: 4},
+//   {name: 'status', value: 4},
+// ]
+
+const initialDisciplines = [
+  {name: 'animalism', value: 3},
+  {name: 'auspex', value: 1},
+  {name:'celerity', value: 1},
+  {name:'fortitude', value: 2},
+  {name:'obfuscate', value: 5},
+  {name:'potence', value: 3},
+  {name: 'protean', value: 2}
 ]
 
 
@@ -97,7 +107,30 @@ function background(state = initCharactrer.advantages.background, action) {
   }
 }
 
-function disciplines(state = initCharactrer.advantages.disciplines, action) {
+function disciplines(state = initialDisciplines, action) {
+  switch (action.type) {
+    case 'CHANGE_CLAN_DISCIPLINE':
+      return [...action.disciplines]
+    case 'CHANGE_DISCIPLINE':
+      return state.map((el, index)=>{
+        if(index === action.index){
+          return {...el, name: action.name}
+        }
+        return el
+      })
+    case 'CHANGE_DISCIPLINE_VALUE':
+      return state.map(el => {//TODO рефактор через ... попробовать
+        if(el.name === action.name){
+          return {...el, value: action.value}
+        }
+        return el
+      })
+    default:
+      return state
+  }
+}
+
+function advantages(state = initCharactrer.advantages, action) {
   switch (action.type) {
     case 'CHANGE_ATTR':
       return {...state, [action.attrType]:{...state[action.attrType], [action.name]: [action.value]}}
@@ -108,4 +141,4 @@ function disciplines(state = initCharactrer.advantages.disciplines, action) {
 
 
 
-export default combineReducers({attributes, abilities, background, disciplines})
+export default combineReducers({attributes, abilities, background, disciplines, advantages})

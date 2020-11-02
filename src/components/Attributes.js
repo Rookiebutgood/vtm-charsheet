@@ -4,7 +4,7 @@ import Trait from './Trait'
 function Attributes() {
   return (
     <>
-      <div>
+      <div style={{width: '33%'}}>
         <h2>Физические</h2>
         <Trait label="Сила" name="strength" type="physical" part="attributes" />
         <Trait label="Ловкость" name="dexterity" type="physical" part="attributes" />
